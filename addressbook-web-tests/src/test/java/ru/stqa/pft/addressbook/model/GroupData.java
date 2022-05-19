@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class GroupData {
+    private int id;
     private final String header;
     private final String name;
     private final String footer;
@@ -12,25 +13,43 @@ public class GroupData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GroupData groupData = (GroupData) o;
-        return Objects.equals(name, groupData.name);
+        return id == groupData.id && Objects.equals(name, groupData.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(id, name);
+    }
+
+    public GroupData(String header, String name, String footer) {
+        this.id = 0;
+        this.header = header;
+        this.name = name;
+        this.footer = footer;
+    }
+
+    public GroupData(int id, String header, String name, String footer) {
+        this.id = id;
+        this.header = header;
+        this.name = name;
+        this.footer = footer;
     }
 
     @Override
     public String toString() {
         return "GroupData{" +
-                "name='" + name + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 
-    public GroupData(String header, String name, String footer) {
-        this.header = header;
-        this.name = name;
-        this.footer = footer;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getHeader() {
