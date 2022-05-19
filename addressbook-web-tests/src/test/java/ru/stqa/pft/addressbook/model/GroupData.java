@@ -8,21 +8,8 @@ public class GroupData {
     private final String name;
     private final String footer;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GroupData groupData = (GroupData) o;
-        return id == groupData.id && Objects.equals(name, groupData.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
-    }
-
     public GroupData(String header, String name, String footer) {
-        this.id = 0;
+        this.id = Integer.MAX_VALUE;
         this.header = header;
         this.name = name;
         this.footer = footer;
@@ -62,5 +49,18 @@ public class GroupData {
 
     public String getFooter() {
         return footer;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GroupData groupData = (GroupData) o;
+        return Objects.equals(name, groupData.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }
