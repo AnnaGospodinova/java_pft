@@ -3,18 +3,45 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-    private final String firstname;
+    private int id = Integer.MAX_VALUE;
+    private String firstname;
     private String lastname;
-    private final String address;
-    private final String mobile;
+    private String address;
+    private String mobile;
     private String group;
 
-    public ContactData(String firstname, String lastname, String address, String mobile, String group) {
+    public ContactData withId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    public ContactData withFirstname(String firstname) {
         this.firstname = firstname;
+        return this;
+    }
+
+    public ContactData withLastname(String lastname) {
         this.lastname = lastname;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
         this.address = address;
+        return this;
+    }
+
+    public ContactData withMobile(String mobile) {
         this.mobile = mobile;
+        return this;
+    }
+
+    public ContactData withGroup(String group) {
         this.group = group;
+        return this;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getFirstname() {
@@ -40,8 +67,8 @@ public class ContactData {
     @Override
     public String toString() {
         return "ContactData{" +
-                "firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
                 '}';
     }
 
@@ -50,11 +77,12 @@ public class ContactData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname);
+        return id == that.id && Objects.equals(firstname, that.firstname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstname, lastname);
+        return Objects.hash(id, firstname);
     }
+
 }
