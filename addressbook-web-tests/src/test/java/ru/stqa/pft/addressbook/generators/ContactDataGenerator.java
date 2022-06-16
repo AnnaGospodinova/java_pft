@@ -60,7 +60,9 @@ public class ContactDataGenerator {
             contacts.add(new ContactData().withFirstname(String.format("firstname %s", i))
                     .withLastname(String.format("lastname %s", i))
                     .withMobilePhone(String.format("1000000%s", i))
-                    .withEmail1(String.format("test%s@mail.ru", i)));
+                    .withEmail1(String.format("test%s@mail.ru", i))
+                    .withAddress(String.format("address %s", i))
+                    .withGroup(String.format("test%s", i)));
         }
         return contacts;
     }
