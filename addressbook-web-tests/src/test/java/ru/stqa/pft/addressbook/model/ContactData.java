@@ -71,6 +71,31 @@ public class ContactData {
     @Type(type = "text")
     private String photo;
 
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", address='" + address + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", email1='" + email1 + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactData that = (ContactData) o;
+        return id == that.id && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname) && Objects.equals(address, that.address) && Objects.equals(mobilePhone, that.mobilePhone) && Objects.equals(email1, that.email1);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstname, lastname, address, mobilePhone, email1);
+    }
+
     public ContactData withId(int id) {
         this.id = id;
         return this;
@@ -204,27 +229,6 @@ public class ContactData {
 
     public File getPhoto() {
         return new File(photo);
-    }
-
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ContactData that = (ContactData) o;
-        return id == that.id && Objects.equals(firstname, that.firstname);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstname);
     }
 
 }

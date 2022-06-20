@@ -1,13 +1,5 @@
 [
   {
-    "firstname": "firstname 0",
-    "lastname": "lastname 0",
-    "address": "address 0",
-    "mobilePhone": "10000000",
-    "email1": "test0@mail.ru",
-    "group": "test0"
-  },
-  {
     "firstname": "firstname 1",
     "lastname": "lastname 1",
     "address": "address 1",
