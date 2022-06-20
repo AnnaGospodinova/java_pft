@@ -19,6 +19,20 @@ public class GroupData {
     @Id
     @Column(name = "group_id")
     private int id = Integer.MAX_VALUE;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GroupData groupData = (GroupData) o;
+        return id == groupData.id && Objects.equals(header, groupData.header) && Objects.equals(name, groupData.name) && Objects.equals(footer, groupData.footer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, header, name, footer);
+    }
+
     @Expose
     @Column(name = "group_header")
     @Type(type = "text")
@@ -75,16 +89,4 @@ public class GroupData {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GroupData groupData = (GroupData) o;
-        return id == groupData.id && Objects.equals(name, groupData.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
-    }
 }
