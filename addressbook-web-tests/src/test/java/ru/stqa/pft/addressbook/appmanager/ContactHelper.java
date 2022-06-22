@@ -1,17 +1,15 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -49,11 +47,19 @@ public class ContactHelper extends HelperBase {
     }
 
     public void returnToMainPage() {
-      click(By.linkText("home page"));
+      click(By.id("logo"));
     }
 
     public void selectContactById(int id) {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+    }
+
+    public void selectToGroupById(int id) {
+        wd.findElement(By.cssSelector("select[name=\"to_group\"] option[value='" + id + "']")).click();
+    }
+
+    public void selectGroupById(int id) {
+        wd.findElement(By.cssSelector("select[name=\"group\"] option[value='" + id + "']")).click();
     }
 
     public void initContactModificationById(int id) {
@@ -85,6 +91,19 @@ public class ContactHelper extends HelperBase {
         selectContactById(contact.getId());
         click(By.xpath("//input[@value='Delete']"));
         wd.switchTo().alert().accept();
+    }
+
+    public void addGroup(ContactData contact, GroupData group) {
+        selectContactById(contact.getId());
+        selectToGroupById(group.getId());
+        click(By.name("add"));
+        returnToMainPage();
+    }
+
+    public void removeGroup(ContactData contact, GroupData group) {
+        selectGroupById(group.getId());
+        selectContactById(contact.getId());
+        click(By.name("remove"));
     }
 
     public boolean isThereAContact() {
