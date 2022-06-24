@@ -9,9 +9,10 @@ import java.io.File;
 
 public class TestBase {
 
-    protected static final ApplicationManager app = new ApplicationManager (System.getProperty("browser", BrowserType.CHROME));
+    protected static final ApplicationManager app
+            = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
 
-    @BeforeSuite(alwaysRun = true)
+    @BeforeSuite
     public void setUp() throws Exception {
         app.init();
         app.ftp().upload(new File("src/test/resources/config_inc.php"), "config_inc.php", "config_inc.php.bak");
