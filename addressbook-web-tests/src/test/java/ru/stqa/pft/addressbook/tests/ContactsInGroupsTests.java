@@ -6,8 +6,6 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
-import java.util.stream.Collectors;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -27,9 +25,16 @@ public class ContactsInGroupsTests extends TestBase {
 
     @Test
     public void testAddContactInGroup() {
-        ContactData selectedContact = app.db().contacts().iterator().next();
+        int groupsSize = app.db().groups().size();
+        if (app.db().contacts().stream().noneMatch(c -> c.getGroups().size() != groupsSize)) {
+            app.goTo().groupPage();
+            app.group().create(new GroupData().withName("group1"));
+            app.goTo().goToHomePage();
+        }
+        ContactData selectedContact = app.db().contacts().stream().filter(c -> c.getGroups().size() < app.db().groups().size()).iterator().next();
         Groups groupsBefore = selectedContact.getGroups();
-        GroupData selectedGroup = app.db().groups().iterator().next();
+        Groups groups = app.db().groups();
+        GroupData selectedGroup = app.contact().getAvailableGroup(selectedContact, groups);
         app.contact().addGroup(selectedContact, selectedGroup);
         ContactData addedContact = app.db().contacts().stream().filter(x -> x.getId() == selectedContact.getId()).iterator().next();
         Groups groupsAfter = addedContact.getGroups();
@@ -38,7 +43,7 @@ public class ContactsInGroupsTests extends TestBase {
 
     @Test
     public void testRemoveContactFromGroup() {
-        if (app.db().contacts().stream().filter(g -> g.getGroups().size() > 0).collect(Collectors.toList()).size() == 0) {
+        if (app.db().contacts().stream().noneMatch(g -> g.getGroups().size() > 0)) {
             testAddContactInGroup();
         }
         ContactData selectedContact = app.db().contacts().stream().filter(g -> g.getGroups().size() > 0).iterator().next();

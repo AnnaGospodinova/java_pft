@@ -8,6 +8,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.List;
 
@@ -104,6 +105,16 @@ public class ContactHelper extends HelperBase {
         selectGroupById(group.getId());
         selectContactById(contact.getId());
         click(By.name("remove"));
+    }
+
+    public GroupData getAvailableGroup(ContactData selected_contact, Groups groups) {
+        for (GroupData group : groups) {
+            if (!(selected_contact.getGroups().contains(group))) {
+                System.out.println(group);
+                return group;
+            }
+        }
+        return null;
     }
 
     public boolean isThereAContact() {
