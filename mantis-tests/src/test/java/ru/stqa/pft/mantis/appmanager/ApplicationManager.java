@@ -1,14 +1,19 @@
 package ru.stqa.pft.mantis.appmanager;
 
+import biz.futureware.mantis.rpc.soap.client.MantisConnectLocator;
+import biz.futureware.mantis.rpc.soap.client.MantisConnectPortType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
 
+import javax.xml.rpc.ServiceException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -132,5 +137,11 @@ public class ApplicationManager {
 
     public String getProperty(String key) {
         return properties.getProperty(key);
+    }
+
+    public MantisConnectPortType getMantisConnect() throws ServiceException, MalformedURLException {
+        MantisConnectPortType mc = new MantisConnectLocator()
+                .getMantisConnectPort(new URL("http://localhost/mantisbt-2.25.4/api/soap/mantisconnect.php"));
+        return mc;
     }
 }
