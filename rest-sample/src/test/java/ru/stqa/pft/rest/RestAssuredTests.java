@@ -16,15 +16,11 @@ import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
 
-public class RestAssuredTests {
-
-    @BeforeClass
-    public void init() {
-        RestAssured.authentication = RestAssured.basic("288f44776e7bec4bf44fdfeb1e646490", "");
-    }
+public class RestAssuredTests extends TestBase {
 
     @Test
     public void testCreateIssue() throws IOException {
+        skipIfNotFixed(1792);
         Set<Issue> oldIssues = getIssues();
         Issue newIssue = new Issue().withSubject("Test issue").withDescription("New Test issue");
         int issueId = createIssue(newIssue);
